@@ -72,14 +72,17 @@ public class Menu {
 		}
 	}
 	
-	private static void processChoice(int selection) {
+	private static void processChoiceUser(int selection) {
 		switch( selection ) {
 		case 1 :	
-			//addNewEmployee(); 
+			// method to buy item; 
+			// method to reduce item quantity
 			break;
 		case 2 :	
-			//listEmployees(); 
+			// method to check prices; 
 			break;
+		case 3:
+			// method to cancel
 		default :	
 			System.out.println("Error - Invalid Option.");
 		}
@@ -101,15 +104,43 @@ public class Menu {
 			if ( choice == quitOption ) {
 				break;
 			}
-			processChoice(choice);
+			processChoiceUser(choice);
 		}
 		while(true);
 		
 		System.out.print("Exit Application");
 	}
 
+	private static void processChoiceStock(int selection) {
+		switch( selection ) {
+		case 1 :	
+			// method to set item price
+			break;
+		case 2 :	
+			// method to check item prices 
+			break;
+		case 3:
+			// method to change item name
+			break;
+		case 4:
+			// method to check/change item quantity
+			break;
+		case 5:
+			// method to empty changebox
+			break;
+		case 6:
+			// method to insert change by the owner
+			break;
+		case 7:
+			// method to quit to user mode
+			break;
+		default :	
+			System.out.println("Error - Invalid Option.");
+		}
+	}
+	
 	private void stockModeApplication () {
-		String option[] = {"Set item price", "Check prices", "Empty changebox", "Insert change", "Quit to user mode"};
+		String option[] = {"Set item price", "Check prices", "Change item name", "Check/change item quantity","Empty changebox", "Insert change", "Quit to user mode"};
 		int choice;
 		int quitOption = options.length;
 		Menu sysMenu = new Menu("Employee Application", options);
@@ -119,7 +150,7 @@ public class Menu {
 			if ( choice == quitOption ) {
 				break;
 			}
-			processChoice(choice);
+			processChoiceStock(choice);
 		}
 		while(true);
 		
