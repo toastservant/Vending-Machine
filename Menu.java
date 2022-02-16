@@ -1,19 +1,25 @@
 import java.util.Scanner;
 
 public class Menu {
-	private String options[];	// array of strings representing user options
+	private static String options[];	// array of strings representing user options
 	private String title;		// menu title
-	private Scanner input;		// for KB input
+	private static Scanner input = new Scanner(System.in);		// for KB input
 	
 	/**
 	 * Constructor for class
 	 * @param title - the menu title
 	 * @param options - the options for user selection
 	 */
+	
+	public static void main(String[] args) {
+		application();
+		//stockModeApplication();
+	}
+	
 	public Menu(String title, String options[]) {
 		this.title = title;
 		copyOptions(options);
-		input = new Scanner(System.in);
+		//input = new Scanner(System.in);
 	}
 	
 	/**
@@ -72,13 +78,23 @@ public class Menu {
 		}
 	}
 	
-	private static void processChoice(int selection) {
+	private static void processChoiceUser(int selection) {
 		switch( selection ) {
 		case 1 :	
-			//addNewEmployee(); 
+			// method to buy item; 
+			// method to reduce item quantity
 			break;
 		case 2 :	
-			//listEmployees(); 
+			// method to check prices; 
+			break;
+		case 3:
+			// method to cancel
+			break;
+		case 4 :
+			key();
+			break;
+		case 5:
+			System.out.println("Power off."); 
 			break;
 		default :	
 			System.out.println("Error - Invalid Option.");
@@ -90,40 +106,82 @@ public class Menu {
 	}*/
 	
 	//could use in main method for defining each option
-	private void application () {
-		String option[] = {"Buy item", "Check prices", "Cancel", "Quit"};
+	private static void application () {
+		String userOptions[] = new String[]{"Buy item", "Check prices", "Cancel", "Stock Mode (key required)", "Quit"};
+		
+		Menu sysMenu = new Menu("\n\nUser Mode", userOptions);
 		int choice;
 		int quitOption = options.length;
-		Menu sysMenu = new Menu("Employee Application", options);
-		
 		do {
 			choice = sysMenu.getChoice();
 			if ( choice == quitOption ) {
 				break;
 			}
-			processChoice(choice);
+			processChoiceUser(choice);
 		}
 		while(true);
 		
 		System.out.print("Exit Application");
 	}
 
-	private void stockModeApplication () {
-		String option[] = {"Set item price", "Check prices", "Empty changebox", "Insert change", "Quit to user mode"};
+	//validates password for entry into stock mode
+	private static void key() {
+		String password = "1";
+		System.out.println("Please enter the key: ");
+		input.nextLine();
+		String inputPassword = input.nextLine();
+		
+		if (inputPassword.equals(password)) {
+			stockModeApplication();
+		} else {
+			System.out.print("Wrong key");
+			application();
+		}		
+	}
+
+	private static void processChoiceStock(int selection) {
+		switch( selection ) {
+		case 1 :	
+			// method to set item price
+			break;
+		case 2 :	
+			// method to check item prices 
+			break;
+		case 3:
+			// method to change item name
+			break;
+		case 4:
+			// method to check/change item quantity
+			break;
+		case 5:
+			// method to empty changebox
+			break;
+		case 6:
+			// method to insert change by the owner
+			break;
+		case 7:
+			System.out.print("Switching to user mode...");
+			application();
+			break;
+		default :	
+			System.out.println("Error - Invalid Option.");
+		//possibly add choice for change password?
+		}
+	}
+	
+	private static void stockModeApplication () {
+		String stockOptions[] = new String[]{"Set item price", "Check prices", "Change item name", "Check/change item quantity", "Empty changebox", "Insert change", "Quit to user mode"};
 		int choice;
 		int quitOption = options.length;
-		Menu sysMenu = new Menu("Employee Application", options);
+		Menu sysMenu = new Menu("Stock Mode", stockOptions);
 		
 		do {
 			choice = sysMenu.getChoice();
 			if ( choice == quitOption ) {
 				break;
 			}
-			processChoice(choice);
+			processChoiceStock(choice);
 		}
 		while(true);
-		
-		System.out.print("Exit Application");
-	}
-
+   }
 }
