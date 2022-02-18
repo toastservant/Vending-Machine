@@ -1,8 +1,26 @@
-Product Name, Price (p), Quantity
-Tayto Cheese & Onion,70,20
-Snickers,30,20
-Coke,100,20
-Mars,30,20
-Hunky Dorys Buffalo,70,20
-Dairy Milk,30,20
-Tayto Salt & Vinegar,70,20
+Location,Product Name,Price (p),Quantity
+A1,Tayto Cheese & Onion,90,10
+A2,Snickers,30,0
+A3,Coke,100,20
+A4,Mars,30,20
+A5,Hunky Dorys Buffalo,70,20
+B1,Dairy Milk,30,20
+B2,Tayto Salt & Vinegar,70,20
+B3,Tayto Cheese & Onion,70,20
+B4,Snickers,30,20
+B5,Coke,100,20
+C1,Mars,30,20
+C2,Hunky Dorys Buffalo,70,20
+C3,Dairy Milk,30,20
+C4,Tayto Salt & Vinegar,70,20
+C5,Tayto Cheese & Onion,70,20
+D1,Snickers,30,20
+D2,Coke,120,20
+D3,Mars,30,20
+D4,Hunky Dorys Buffalo,70,20
+D5,Dairy Milk,30,20
+E1,Tayto Salt & Vinegar,70,20
+E2,Tayto Cheese & Onion,70,20
+E3,Twix,30,20
+E4,Fanta,70,20
+E5,Mars,30,20
