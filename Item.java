@@ -1,11 +1,13 @@
 public class Item implements interfaceItem {
 	private int id;
 	static int nextId = 1;
+	private String code;
 	private String name;
 	private double price;
 	private int quantity;
 
-	public Item(String newName, double newPrice, int newQuantity) {
+	public Item(String newCode, String newName, double newPrice, int newQuantity) {
+		setCode(newCode);
 		setName(newName);
 		setPrice(newPrice);
 		setQuantity(newQuantity);
@@ -47,6 +49,14 @@ public class Item implements interfaceItem {
 
 	public int getid() {
 		return id;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 }

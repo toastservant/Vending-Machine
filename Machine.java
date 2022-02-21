@@ -13,8 +13,8 @@ public class Machine implements IMachine {
 	}
 
 	@Override
-	public boolean addItem(String name, double price, int quantity) {
-		Item newitem = new Item(name, price, quantity);
+	public boolean addItem(String code, String name, double price, int quantity) {
+		Item newitem = new Item(code, name, price, quantity);
 		for (Item item : itemData) {
 			if (newitem.getName().equals((item).getName())) {
 				return false;

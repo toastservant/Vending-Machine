@@ -34,17 +34,17 @@ public class Menu {
 		/* splits each line and adds an item to the machine instance arraylist
 		 * 
 		 * (skipped value[0], the code, for now - there's an incremental id for each item at the moment if you
-		 * need to use that. Still need to write an algorithm to increment an alphanumeric code when an item is added
-		 * to the CSV.
+		 * need to use that.
 		*/
 		String line;
 		try {
 			while ((line = br.readLine()) != null) {
 				String[] values = line.split(",");
+				String code = values[0];
 				String name = values[1];
 				double price = Double.parseDouble(values[2]);
 				int quantity = Integer.parseInt(values[3]);
-		        machine.addItem(name, price, quantity);
+		        machine.addItem(code, name, price, quantity);
 			 }
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -125,7 +125,7 @@ public class Menu {
 		}
 	}
 	
-	private static void processChoiceUser(int selection) {
+	private static void processChoiceUser(int selection) throws IOException {
 		switch( selection ) {
 		case 1 :	
 			// method to buy item; 
@@ -153,7 +153,7 @@ public class Menu {
 	}*/
 	
 	//could use in main method for defining each option
-	private static void application () {
+	private static void application () throws IOException {
 		String userOptions[] = new String[]{"Buy item", "Check prices", "Cancel", "Stock Mode (key required)", "Quit"};
 		
 		Menu sysMenu = new Menu("\n\nUser Mode", userOptions);
@@ -172,7 +172,7 @@ public class Menu {
 	}
 
 	//validates password for entry into stock mode
-	private static void key() {
+	private static void key() throws IOException {
 		String password = "1";
 		System.out.println("Please enter the key: ");
 		input.nextLine();
@@ -186,7 +186,7 @@ public class Menu {
 		}		
 	}
 
-	private static void processChoiceStock(int selection) {
+	private static void processChoiceStock(int selection) throws IOException {
 		switch( selection ) {
 		case 1 :	
 			// method to set item price
@@ -207,6 +207,11 @@ public class Menu {
 			// method to insert change by the owner
 			break;
 		case 7:
+			if (!Stock.addItem()); {
+				break;
+			}
+				
+		case 8:
 			System.out.print("Switching to user mode...");
 			application();
 			break;
@@ -216,8 +221,8 @@ public class Menu {
 		}
 	}
 	
-	private static void stockModeApplication () {
-		String stockOptions[] = new String[]{"Set item price", "Check prices", "Change item name", "Check/change item quantity", "Empty changebox", "Insert change", "Quit to user mode"};
+	private static void stockModeApplication () throws IOException {
+		String stockOptions[] = new String[]{"Set item price", "Check prices", "Change item name", "Check/change item quantity", "Empty changebox", "Insert change", "Add Item", "Quit to user mode"};
 		int choice;
 		int quitOption = options.length;
 		Menu sysMenu = new Menu("Stock Mode", stockOptions);
