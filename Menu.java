@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Menu {
+	static Machine machine = new Machine();
 	private static String options[];	// array of strings representing user options
 	private String title;		// menu title
 	private static Scanner input = new Scanner(System.in);		// for KB input
