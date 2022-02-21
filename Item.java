@@ -1,4 +1,6 @@
 public class Item implements interfaceItem {
+	private int id;
+	static int nextId = 1;
 	private String name;
 	private double price;
 	private int quantity;
@@ -7,6 +9,8 @@ public class Item implements interfaceItem {
 		setName(newName);
 		setPrice(newPrice);
 		setQuantity(newQuantity);
+		id = nextId;
+		nextId +=1;
 	}
 	
 	private void setName(String name) {
@@ -39,6 +43,10 @@ public class Item implements interfaceItem {
 	@Override
 	public void purchase() {
 		quantity -= 1;
+	}
+
+	public int getid() {
+		return id;
 	}
 	
 }
