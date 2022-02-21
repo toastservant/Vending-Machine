@@ -1,4 +1,8 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+
+import java.io.*;
 
 public class Menu {
 	static Machine machine = new Machine();
@@ -10,9 +14,51 @@ public class Menu {
 	 * Constructor for class
 	 * @param title - the menu title
 	 * @param options - the options for user selection
+	 * @throws IOException 
 	 */
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		
+		//reads CSV file
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader("Stock.csv"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// consumes header line
+		br.readLine();
+		
+		/* splits each line and adds an item to the machine instance arraylist
+		 * 
+		 * (skipped value[0], the code, for now - there's an incremental id for each item at the moment if you
+		 * need to use that. Still need to write an algorithm to increment an alphanumeric code when an item is added
+		 * to the CSV.
+		*/
+		String line;
+		try {
+			while ((line = br.readLine()) != null) {
+				String[] values = line.split(",");
+				String name = values[1];
+				double price = Double.parseDouble(values[2]);
+				int quantity = Integer.parseInt(values[3]);
+		        machine.addItem(name, price, quantity);
+			 }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//ArrayList of items that has just been populated
+		ArrayList<Item> itemList = machine.getItemList();
+		
+		/* Use the below line to test each item. The number is the index of the item, then you can 
+		 * use an item method e.g. getName, getPrice getQuantity to get a field.
+		System.out.println(itemList.get(5).getName());
+		*/
+
 		application();
 		//stockModeApplication();
 	}
