@@ -15,15 +15,15 @@ public class Item implements interfaceItem {
 		nextId +=1;
 	}
 	
-	private void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	private void setPrice(double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
-	private void setQuantity(int quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 	
@@ -58,5 +58,10 @@ public class Item implements interfaceItem {
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
+	public String toString() {
+		return this.getCode() + " " + this.getName() + " £" + String.format("%.2f", this.getPrice()) + "p Currently " + this.getQuantity() + " in Stock.";
+	}
+	
 	
 }

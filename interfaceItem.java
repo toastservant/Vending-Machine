@@ -4,4 +4,5 @@ public interface interfaceItem {
 	public double getPrice();
 	public int getQuantity();
 	public void purchase();
+	public String toString();
 }
