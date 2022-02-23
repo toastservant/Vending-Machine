@@ -83,7 +83,7 @@ public class Menu {
 	}
 
 	static void application() throws IOException {
-		String userOptions[] = new String[] { "Buy item", "Check prices", "Cancel", "Stock Mode (key required)",
+		String userOptions[] = new String[] { "Buy item", "Check prices", "Eject change", "Stock Mode (key required)",
 				"Quit" };
 
 		Menu userMenu = new Menu("\n\nUser Mode\tBalance: " + String.format("%.2f", balance), userOptions);
@@ -208,7 +208,7 @@ public class Menu {
 			// method to check prices;
 			break;
 		case 3:
-			// method to cancel
+			// method to eject change
 			break;
 		case 4:
 			key();
