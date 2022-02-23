@@ -24,7 +24,6 @@ public class Menu {
 	public static void main(String[] args) throws IOException {
 		readFile();
 		application();
-		// stockModeApplication();
 	}
 
 	private static void readFile() throws IOException {
@@ -56,15 +55,10 @@ public class Menu {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		/*
-		 * Use the below line to test each item. The number is the index of the item,
-		 * then you can use an item method e.g. getName, getPrice getQuantity to get a
-		 * field. System.out.println(machine.getItemList().get(5).getName());
-		 */
 	}
 
 	private static void writeArrayToFile() {
+		//Writes to Stock.csv when program is terminated
 		String CSVFILEPATH = "stock.csv";
 		try {
 			FileWriter myWriter = new FileWriter(CSVFILEPATH);
@@ -83,9 +77,10 @@ public class Menu {
 	}
 
 	static void application() throws IOException {
+		//Options for user
 		String userOptions[] = new String[] { "Buy item", "Check prices", "Eject change", "Stock Mode (key required)",
 				"Quit" };
-
+		//Title + current balance as a header
 		Menu userMenu = new Menu("\n\nUser Mode\tBalance: " + String.format("%.2f", balance), userOptions);
 		int choice;
 		int quitOption = userOptions.length;
@@ -97,6 +92,7 @@ public class Menu {
 			}
 
 		} while (true);
+		//when quit option is selected
 		System.out.print("Application Terminated.");
 		writeArrayToFile();
 		System.exit(1);
@@ -110,6 +106,7 @@ public class Menu {
 	}
 
 	private static boolean codeCheck(String choice) throws IOException {
+		//Verifies code matches a place in the machine
 		if (choice.charAt(0) == 'A' || choice.charAt(0) == 'B' || choice.charAt(0) == 'C' || choice.charAt(0) == 'D'
 				|| choice.charAt(0) == 'E') {
 			if (choice.charAt(1) == '1' || choice.charAt(1) == '2' || choice.charAt(1) == '3' || choice.charAt(1) == '4'
@@ -131,6 +128,7 @@ public class Menu {
 			System.out.print("Invalid code\n");
 			return true;
 		}
+		//goes through machine items until it finds the correct code
 		for (Item item : machine.getItemList()) {
 			if (choice.equals(item.getCode())) {
 				System.out.println("Price: " + String.format("%.2f", item.getPrice()));
@@ -177,8 +175,8 @@ public class Menu {
 		} while (true);
 	}
 
-	// validates password for entry into stock mode
 	private static void key() throws IOException {
+		// validates password for entry into stock mode
 		String password = "1";
 		System.out.println("Please enter the key: ");
 		input.nextLine();
@@ -191,6 +189,7 @@ public class Menu {
 			application();
 		}
 	}
+	
 
 	private static void processChoiceUser(int selection) throws IOException {
 		switch (selection) {
@@ -200,12 +199,9 @@ public class Menu {
 				System.out.println("Returning to menu...");
 				application();
 			}
-			// method to buy item;
-			// method to reduce item quantity
 			break;
 		case 2:
 			listItems();
-			// method to check prices;
 			break;
 		case 3:
 			// method to eject change
@@ -220,10 +216,6 @@ public class Menu {
 			System.out.println("Error - Invalid Option.");
 		}
 	}
-
-	/*
-	 * public userMode (String, String address) { this(name, address, 20000); }
-	 */
 
 	private static void processChoiceStock(int selection) throws IOException {
 		switch (selection) {
