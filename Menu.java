@@ -3,10 +3,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
-	static String CSVFILEPATH = "Stock.csv";
 	static double balance = 0;
 	static Machine machine = new Machine();
 	private static String options[]; // array of strings representing user options
@@ -22,59 +22,26 @@ public class Menu {
 	 */
 
 	public static void main(String[] args) throws IOException {
-		readFile();
+		read();
 		application();
 	}
 
-	private static void readFile() throws IOException {
-		// reads CSV file
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader(CSVFILEPATH));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		// consumes header line
-		br.readLine();
-
-		// splits each line and adds an item to the machine instance arraylist
-		String line;
+	private static void read() {
+		ArrayList<Item> items = null;
 		try {
-			while ((line = br.readLine()) != null) {
-				String[] values = line.split(",");
-				String code = values[0];
-				String name = values[1];
-				double price = Double.parseDouble(values[2]);
-				int quantity = Integer.parseInt(values[3]);
-				machine.addItem(code, name, price, quantity);
-				// ArrayList of items has just been populated
-			}
+			items = File.readFile();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	private static void writeArrayToFile() {
-		//Writes to Stock.csv when program is terminated
-		String CSVFILEPATH = "stock.csv";
-		try {
-			FileWriter myWriter = new FileWriter(CSVFILEPATH);
-			myWriter.write("Location,Product Name,Price,Quantity");
-			for (Item item : machine.getItemList()) {
-				myWriter.write("\n");
-				myWriter.write(item.getCode() + "," + item.getName() + "," + String.format("%.2f", item.getPrice())
-						+ "," + item.getQuantity());
-
-			}
-			myWriter.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		for (int i=0;i<items.size();i++) {
+			machine.addItem(items.get(i).getCode(), items.get(i).getName(), items.get(i).getPrice(), items.get(i).getQuantity());
 		}
-
+		
 	}
+
+
 
 	static void application() throws IOException {
 		//Options for user
@@ -94,7 +61,7 @@ public class Menu {
 		} while (true);
 		//when quit option is selected
 		System.out.print("Application Terminated.");
-		writeArrayToFile();
+		File.writeArrayToFile();
 		System.exit(1);
 	}
 
@@ -376,6 +343,6 @@ public class Menu {
 		display();
 		System.out.print("Enter choice: ");
 		int choice = input.nextInt();
-		return choice;
+		return choice; //needs validated for string entry.
 	}
 }
