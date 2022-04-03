@@ -1,4 +1,4 @@
-package csc1031;
+
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -205,7 +205,7 @@ public class Menu {
 			listItems();
 			break;
 		case 3:
-			// method to eject change
+			changeBox.dispenseChange(balance);
 			break;
 		case 4:
 			key();
@@ -236,10 +236,10 @@ public class Menu {
 				System.out.println("Success!\n");
 			break;
 		case 5:
-			// method to empty changebox
+			changeBox.emptyChangebox();
 			break;
 		case 6:
-			// method to insert change by the owner
+			changeBox.refillChangeTubes();
 			break;
 		case 7:
 			System.out.print("Switching to user mode...");

@@ -28,6 +28,8 @@ public class InsertCoin {
 				// compared to price
 			}
 			userTotal = coin;
+			changeBox.storeCoin(coin);
+			
 			return userTotal;
 		} else if (choice.equals("Euros") || choice.equals("euros")) {
 			System.out.println("Please input a coin in the format '€.cc': ");
