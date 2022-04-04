@@ -30,7 +30,7 @@ public class changeBox {
 	public static void readChangeTube() {
 		try {
 			//Reads available coins from CSV file
-	    	BufferedReader br = new BufferedReader(new FileReader("src/ChangeTubes.csv"));
+	    	BufferedReader br = new BufferedReader(new FileReader("ChangeTubes.csv"));
 	    	String line = "";
 	    	while ((line = br.readLine()) != null)
 	    	{
@@ -50,7 +50,7 @@ public class changeBox {
 	public static void writeChangeTube() {
 		try {
 			//Writes to the CSV the remaining coins in the machine after giving change
-	    	BufferedWriter bw = new BufferedWriter(new FileWriter("src/ChangeTubes.csv"));
+	    	BufferedWriter bw = new BufferedWriter(new FileWriter("ChangeTubes.csv"));
 			bw.write(String.format("%s,%s,%s,%s,%s,%s", availableCoins[0],availableCoins[1],availableCoins[2],availableCoins[3],availableCoins[4],overflow));
 			bw.close();
 		}catch(IOException e) {
@@ -85,7 +85,7 @@ public class changeBox {
 	
 	public static void emptyChangebox() {
 		readChangeTube();
-		System.out.println("Change Emptied: £" + (overflow/100d));
+		System.out.println("Change Emptied: ï¿½" + (overflow/100d));
 		overflow = 0;
 		writeChangeTube();
 	}
