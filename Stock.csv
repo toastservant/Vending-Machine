@@ -1,26 +1,26 @@
-Location,Product Name,Price,Quantity
-A1,Tayto Cheese & Onion,0.70,9
-A2,Snickers,0.30,0
-A3,Coke,1.00,20
-A4,Mars,0.30,20
-A5,Hunky Dorys Buffalo,0.70,20
-B1,Dairy Milk,0.30,20
-B2,Tayto Salt & Vinegar,0.70,20
-B3,Tayto Cheese & Onion,0.70,20
-B4,Snickers,0.30,20
-B5,Coke,1.00,20
-C1,Mars,0.30,20
-C2,Hunky Dorys Buffalo,0.70,20
-C3,Dairy Milk,0.30,20
-C4,Tayto Salt & Vinegar,0.70,20
-C5,Tayto Cheese & Onion,0.70,20
-D1,Snickers,0.30,20
-D2,Coke,1.20,20
-D3,Mars,0.30,20
-D4,Hunky Dorys Buffalo,0.70,20
-D5,Dairy Milk,0.30,20
-E1,Tayto Salt & Vinegar,0.70,20
-E2,Tayto Cheese & Onion,0.70,20
-E3,Twix,0.30,20
-E4,Fanta,0.70,20
-E5,Mars,0.30,20
+Location,Product Name,Price,Quantity,Type
+A1,Tayto Cheese & Onion,0.70,9,CRISPS
+A2,Snickers,0.30,0,CHOCOLATE
+A3,Coke,1.00,20,DRINK
+A4,Mars,0.30,20,CHOCOLATE
+A5,Hunky Dorys Buffalo,0.70,20,CRISPS
+B1,Dairy Milk,0.30,20,CHOCOLATE
+B2,Tayto Salt & Vinegar,0.70,20,CRISPS
+B3,Tayto Cheese & Onion,0.70,20,CRISPS
+B4,Snickers,0.30,20,CHOCOLATE
+B5,Coke,1.00,20,DRINK
+C1,Mars,0.30,20,CHOCOLATE
+C2,Hunky Dorys Buffalo,0.70,20,CRISPS
+C3,Dairy Milk,0.30,20,CHOCOLATE
+C4,Tayto Salt & Vinegar,0.70,20,CRISPS
+C5,Tayto Cheese & Onion,0.70,20,CRISPS
+D1,Snickers,0.30,20,CHOCOLATE
+D2,Coke,1.20,20,DRINK
+D3,Mars,0.30,20,CHOCOLATE
+D4,Hunky Dorys Buffalo,0.70,20,CRISPS
+D5,Dairy Milk,0.30,20,CHOCOLATE
+E1,Tayto Salt & Vinegar,0.70,20,CRISPS
+E2,Tayto Cheese & Onion,0.70,20,CRISPS
+E3,Twix,0.30,20,CHOCOLATE
+E4,Fanta,0.70,20,DRINK
+E5,Mars,0.30,20,CHOCOLATE

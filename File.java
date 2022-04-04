@@ -30,7 +30,19 @@ public class File {
 				String name = values[1];
 				double price = Double.parseDouble(values[2]);
 				int quantity = Integer.parseInt(values[3]);
-				machine.addItem(code, name, price, quantity);
+				Type type = null;
+				switch(values[4]) {
+				case "CRISPS":
+					type = Type.CRISPS;
+					break;
+				case "CHOCOLATE":
+					type = Type.CHOCOLATE;
+					break;
+				case "DRINK":
+					type = Type.DRINK;
+					break;	
+				}
+				machine.addItem(code, name, price, quantity, type);
 			}
 			return machine.getItemList();
 		} catch (IOException e) {

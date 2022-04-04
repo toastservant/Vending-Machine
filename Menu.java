@@ -36,7 +36,7 @@ public class Menu {
 			e.printStackTrace();
 		}
 		for (int i=0;i<items.size();i++) {
-			machine.addItem(items.get(i).getCode(), items.get(i).getName(), items.get(i).getPrice(), items.get(i).getQuantity());
+			machine.addItem(items.get(i).getCode(), items.get(i).getName(), items.get(i).getPrice(), items.get(i).getQuantity(), items.get(i).getType());
 		}
 		
 	}

@@ -5,12 +5,15 @@ public class Item implements interfaceItem {
 	private String name;
 	private double price;
 	private int quantity;
+	private Type type;
 
-	public Item(String newCode, String newName, double newPrice, int newQuantity) {
+	public Item(String newCode, String newName, double newPrice, int newQuantity, Type newType) {
 		setCode(newCode);
 		setName(newName);
 		setPrice(newPrice);
 		setQuantity(newQuantity);
+		setType(newType);
+		
 		id = nextId;
 		nextId +=1;
 	}
@@ -27,6 +30,10 @@ public class Item implements interfaceItem {
 		this.quantity = quantity;
 	}
 	
+	public void setType(Type type) {
+		this.type = type;
+	}
+	
 	@Override
 	public String getName() {
 		return name;
@@ -40,6 +47,10 @@ public class Item implements interfaceItem {
 	@Override
 	public int getQuantity() {
 		return quantity;
+	}
+	
+	public Type getType() {
+		return type;
 	}
 
 	@Override
