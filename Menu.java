@@ -1,3 +1,5 @@
+
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -7,11 +9,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
+	static String CSVFILEPATH = "Stock.csv";
 	static double balance = 0;
+	static double cardBalance = 0;
 	static Machine machine = new Machine();
 	private static String options[]; // array of strings representing user options
 	private String title; // menu title
 	private static Scanner input = new Scanner(System.in); // for KB input
+	public static String choice;
+	private static String paymentType;
 
 	/**
 	 * Constructor for class
@@ -26,7 +32,6 @@ public class Menu {
 		application();
 	}
 
-
 	private static void read() {
 		ArrayList<Item> items = null;
 		try {
@@ -35,19 +40,18 @@ public class Menu {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (int i=0;i<items.size();i++) {
-			machine.addItem(items.get(i).getCode(), items.get(i).getName(), items.get(i).getPrice(), items.get(i).getQuantity(), items.get(i).getType());
+		for (int i = 0; i < items.size(); i++) {
+			machine.addItem(items.get(i).getCode(), items.get(i).getName(), items.get(i).getPrice(),
+					items.get(i).getQuantity(), items.get(i).getType());
 		}
-		
+
 	}
 
-
-
 	static void application() throws IOException {
-		//Options for user
+		// Options for user
 		String userOptions[] = new String[] { "Buy item", "Check prices", "Eject change", "Stock Mode (key required)",
 				"Quit" };
-		//Title + current balance as a header
+		// Title + current balance as a header
 		Menu userMenu = new Menu("\n\nUser Mode\tBalance: " + String.format("%.2f", balance), userOptions);
 		int choice;
 		int quitOption = userOptions.length;
@@ -59,7 +63,7 @@ public class Menu {
 			}
 
 		} while (true);
-		//when quit option is selected
+		// when quit option is selected
 		System.out.print("Application Terminated.");
 		File.writeArrayToFile();
 		System.exit(1);
@@ -73,7 +77,7 @@ public class Menu {
 	}
 
 	private static boolean codeCheck(String choice) throws IOException {
-		//Verifies code matches a place in the machine
+		// Verifies code matches a place in the machine
 		if (choice.charAt(0) == 'A' || choice.charAt(0) == 'B' || choice.charAt(0) == 'C' || choice.charAt(0) == 'D'
 				|| choice.charAt(0) == 'E') {
 			if (choice.charAt(1) == '1' || choice.charAt(1) == '2' || choice.charAt(1) == '3' || choice.charAt(1) == '4'
@@ -90,45 +94,76 @@ public class Menu {
 		System.out.print("\n");
 		System.out.println("Please Enter the Location of the item you would like.");
 		input = new Scanner(System.in);
-		String choice = input.next();
+		choice = input.next();
 		if (!codeCheck(choice)) {
 			System.out.print("Invalid code\n");
 			return true;
 		}
-		//goes through machine items until it finds the correct code
 		for (Item item : machine.getItemList()) {
-			if (choice.equals(item.getCode())) {
+			if (choice.equals(item.getCode()) /*
+												 * && (InsertCoin.addCoins().paymentType.equals("Cash")) ||
+												 * paymentType.equals("cash")
+												 */) {
 				System.out.println("Price: " + String.format("%.2f", item.getPrice()));
 				System.out.println("Current balance: " + String.format("%.2f", balance));
 
+				System.out.println("Do you want to pay by cash or card? ");
+				String decision = input.next();
 				// checks quantity
 				if (item.getQuantity() == 0) {
 					System.out.println("Item depleted");
 					return true;
 				}
 
-				// if balance already exceeds price
+				// if cash balance already exceeds price
 				if (item.getPrice() <= balance) {
 					balance -= item.getPrice();
 					item.purchase();
 					System.out.println("Item purchased");
 					return true;
 				}
-				// prompts coin until balance matches price
-				while (item.getPrice() > balance) {
-					balance += InsertCoin.addCoins();
+				
+
+				if (decision.equals("Cash") || decision.equals("cash")) {
+					// prompts coin until balance matches price
+					while (item.getPrice() > balance) {
+						balance += InsertCoin.addCoins();
+						System.out.println("Current balance: " + String.format("%.2f", balance));
+					}
+					balance -= item.getPrice();
+					item.purchase();
+					System.out.println("Item purchased");
+					paymentType = "Cash";
+					System.out.println(getPaymentType());
 					System.out.println("Current balance: " + String.format("%.2f", balance));
+					return true;
+				} else if (decision.equals("Card") || decision.equals("card")) {
+					cardBalance = CardPayment.payment();
+					input.nextLine();
+					paymentType = "Card";
+					System.out.println(getPaymentType());
+					// if card balance already exceeds price or not
+					if (item.getPrice() <= cardBalance) {
+						cardBalance -= item.getPrice();
+						item.purchase();
+						System.out.println("Item purchased");
+						cardBalance = 0;
+						return true;
+					} else if (item.getPrice() > cardBalance){
+						cardBalance = 0;
+						System.out.println("Insufficent amount in bank account");
+						return true;
+					}
+					return true;
 				}
-				balance -= item.getPrice();
-				item.purchase();
-				System.out.println("Item purchased");
-				System.out.println("Current balance: " + String.format("%.2f", balance));
-				return true;
-				// TODO Changebox etc
 
 			}
 		}
 		return false;
+	}
+
+	private static String getPaymentType() {
+		return paymentType;
 	}
 
 	private static void stockModeApplication() throws IOException {
@@ -156,7 +191,6 @@ public class Menu {
 			application();
 		}
 	}
-	
 
 	private static void processChoiceUser(int selection) throws IOException {
 		switch (selection) {
@@ -171,7 +205,7 @@ public class Menu {
 			listItems();
 			break;
 		case 3:
-			// method to eject change
+			changeBox.dispenseChange(balance);
 			break;
 		case 4:
 			key();
@@ -187,7 +221,7 @@ public class Menu {
 	private static void processChoiceStock(int selection) throws IOException {
 		switch (selection) {
 		case 1:
-			if (editPrice()) 
+			if (editPrice())
 				System.out.println("Success!\n");
 			break;
 		case 2:
@@ -202,10 +236,10 @@ public class Menu {
 				System.out.println("Success!\n");
 			break;
 		case 5:
-			// method to empty changebox
+			changeBox.emptyChangebox();
 			break;
 		case 6:
-			// method to insert change by the owner
+			changeBox.refillChangeTubes();
 			break;
 		case 7:
 			System.out.print("Switching to user mode...");
@@ -343,6 +377,6 @@ public class Menu {
 		display();
 		System.out.print("Enter choice: ");
 		int choice = input.nextInt();
-		return choice; //needs validated for string entry.
+		return choice; // needs validated for string entry.
 	}
 }
