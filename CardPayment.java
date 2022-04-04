@@ -1,5 +1,3 @@
-package csc1031;
-
 import java.io.IOException;
 import java.util.Scanner;
 
