@@ -173,7 +173,7 @@ public class Menu {
 
 	private static void key() throws IOException {
 		// validates password for entry into stock mode
-		String password = "1";
+		String password = "5356";
 		System.out.println("Please enter the key: ");
 		input.nextLine();
 		String inputPassword = input.nextLine();
