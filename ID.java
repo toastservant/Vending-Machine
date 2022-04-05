@@ -1,8 +1,17 @@
 
 public class ID {
-	public static int id = 1;
-	
-	public static void addtoid() {
-		id++;
+
+	private int id;
+
+	public void addtoid() {
+		setid(getid() + 1);
+	}
+
+	public int getid() {
+		return this.id;
+	}
+
+	public void setid(int n) {
+		this.id = n;
 	}
 }
