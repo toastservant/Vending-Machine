@@ -114,6 +114,7 @@ public class Menu {
 					balance -= item.getPrice();
 					item.purchase();
 					System.out.println("Item purchased");
+					Log.transactionMade("Existing Balance", item.getType().toString());
 					return true;
 				}
 				
@@ -127,6 +128,7 @@ public class Menu {
 					balance -= item.getPrice();
 					item.purchase();
 					System.out.println("Item purchased");
+					Log.transactionMade("Cash", item.getType().toString());
 					paymentType = "Cash";
 					System.out.println(getPaymentType());
 					System.out.println("Current balance: " + String.format("%.2f", balance));
@@ -141,6 +143,7 @@ public class Menu {
 						cardBalance -= item.getPrice();
 						item.purchase();
 						System.out.println("Item purchased");
+						Log.transactionMade("Card", item.getType().toString());
 						cardBalance = 0;
 						return true;
 					} else if (item.getPrice() > cardBalance){
@@ -173,7 +176,7 @@ public class Menu {
 
 	private static void key() throws IOException {
 		// validates password for entry into stock mode
-		String password = "pass5356";
+		String password = "1";
 		System.out.println("Please enter the key: ");
 		input.nextLine();
 		String inputPassword = input.nextLine();

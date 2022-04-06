@@ -1,6 +1,7 @@
 
 public interface LogInterface {
-	public static void writeToLog() {}
+	public static int  writeToLog(String payMeth, String prodType) {
+		return 0;}
 	public static void sendToServer() {}
-	public static void transactionMade() {}
+	public static void transactionMade(String payMeth, String prodType) {}
 }
