@@ -7,10 +7,7 @@ import java.io.IOException;
 
 
 public class changeBox {
-	
-	public static void main(String[] args) {
-		dispenseChange(0.7);
-	}
+
 	
 	//Variable Declaration
 	Scanner sc = new Scanner(System.in);
@@ -85,7 +82,7 @@ public class changeBox {
 	
 	public static void emptyChangebox() {
 		readChangeTube();
-		System.out.println("Change Emptied: ï¿½" + (overflow/100d));
+		System.out.println("Change Emptied: £" + (overflow/100d));
 		overflow = 0;
 		writeChangeTube();
 	}
@@ -95,12 +92,17 @@ public class changeBox {
 		for(int i = 0; i < availableCoins.length; i++) {
 			System.out.println(availableCoins[i]);
 		}
-		System.out.println("Would you like to refill? \n1: Refill \n-1: Exit");
-		input.nextInt();
+		System.out.println("Would you like to refill? \n1: Refill \n2: Exit");
 		if(input.nextInt() == 1) {
 			for(int i = 0; i < availableCoins.length; i++) {
 				availableCoins[i] = 20;
 			}
+			writeChangeTube();
+			System.out.println("Refilled Change Tubes:\n" + "£2:"+availableCoins[0] + " £1:"+availableCoins[1]
+					+ " 50p:"+availableCoins[2] + " 20p:"+availableCoins[3] + " 10p:"+availableCoins[4]);
+		}
+		else {
+			System.out.println("Action Cancelled...");
 		}
 	}
 	

@@ -203,6 +203,9 @@ public class Menu {
 			break;
 		case 3:
 			changeBox.dispenseChange(balance);
+			System.out.println("Dispensed £" + balance);
+			balance = 0;
+			application();
 			break;
 		case 4:
 			key();
