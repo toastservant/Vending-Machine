@@ -203,7 +203,7 @@ public class Menu {
 			break;
 		case 3:
 			changeBox.dispenseChange(balance);
-			System.out.println("Dispensed £" + balance);
+			System.out.println("Dispensed Â£" + String.format("%.2f", balance));
 			balance = 0;
 			application();
 			break;
