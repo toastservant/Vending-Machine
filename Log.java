@@ -7,15 +7,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Log implements LogInterface {
-	public static void writeToLog(String payMeth, String prodType) throws IOException {
+	public static int writeToLog(String payMeth, String prodType) throws IOException {
 		final String CSVFILEPATH = "Log.csv";
-		final String HEADER = "TRANSACTION_ID,DATE,TIME,PAYMENT_METHOD,PRODUCT_TYPE,LOCATION,MACHINE_ID";
+//		final String HEADER = "TRANSACTION_ID,DATE,TIME,PAYMENT_METHOD,PRODUCT_TYPE,LOCATION,MACHINE_ID";
 		final String MACHINE_ID = "209";
 		ID id = new ID();
 
 		// construct string to be written
+		int lastID = 0;
+		
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(CSVFILEPATH));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// consumes header line
+		br.readLine();
+
+		// saves last ID
+		String line;
+		while ((line = br.readLine()) != null) {
+			String[] values = line.split(",");
+			lastID = Integer.parseInt(values[0]);
+		}
+		
+		// assign transactionID and finalID
+		if (lastID == 0) {
+			id.setid(1);
+		} else {
+			id.setid(lastID+1);
+		}
 		String transactionID = String.valueOf(id.getid());
-		id.addtoid();
+		int finalID = id.getid();
+		
 
 		String date = DateTime.getDate();
 		String time = DateTime.getTime();
@@ -25,107 +52,57 @@ public class Log implements LogInterface {
 				+ "," + MACHINE_ID + "\n";
 
 		// write to file
-		FileWriter myWriter = new FileWriter(CSVFILEPATH);
-		myWriter.write(HEADER + "\n");
-
-		// writes previous data
-		ArrayList<String> lines = readPrevious();
-		for (int i = 0; i < lines.size(); i++) {
-			myWriter.write(lines.get(i));
-			myWriter.write("\n");
-		}
-
-		myWriter.write(LineToWrite);
+		FileWriter myWriter = new FileWriter(CSVFILEPATH, true);
+		myWriter.append(LineToWrite);
 
 		// close writer
+		myWriter.flush();
 		myWriter.close();
+		
+		return finalID;
 
 	}
 
 	public static void sendToServer() throws IOException {
-		final String HEADER = "TRANSACTION_ID,DATE,TIME,PAYMENT_METHOD,PRODUCT_TYPE,LOCATION,MACHINE_ID";
-		final String CSVFILEPATH = "Log.csv";
-
-		// write to file
-		FileWriter myWriter = new FileWriter(CSVFILEPATH);
-		myWriter.write(HEADER + "\n");
-
-		// writes previous data
-		ArrayList<String> lines = readPrevious();
-		for (int i = 0; i < lines.size(); i++) {
-			myWriter.write(lines.get(i));
-			myWriter.write("\n");
-		}
-
-		// write line to say its being uploaded
-		myWriter.write("-----------FILE UPLOADED TO SERVER----------");
-		myWriter.close();
-
+//		final String HEADER = "TRANSACTION_ID,DATE,TIME,PAYMENT_METHOD,PRODUCT_TYPE,LOCATION,MACHINE_ID";
 		// writes whole file to a backup file
-		final String NEWFILEPATH = "ServerLog.csv";
-		FileWriter newWriter = new FileWriter(NEWFILEPATH);
-		
-		newWriter.write(HEADER + "\n");
+		final String WRITEFILEPATH = "ServerLog.csv";
+		FileWriter newWriter = new FileWriter(WRITEFILEPATH);
+		final String READCSVFILEPATH = "Log.csv";
 
-		for (int i = 0; i < lines.size(); i++) {
-			newWriter.write(lines.get(i));
-			newWriter.write("\n");
-		}
-		newWriter.close();
-
-	}
-
-	public static void transactionMade(String payMeth, String prodType) throws IOException {
-		ID id = new ID();
-		// call to write
-		writeToLog(payMeth, prodType);
-		// check transaction ID
-		// if ID is multiple of 10 send to server
-		if (id.getid() % 10 == 0) {
-			sendToServer();
-		}
-	}
-
-	private static ArrayList<String> readPrevious() throws IOException {
-		ID id = new ID();
-		final String CSVFILEPATH = "Log.csv";
-
-		// read in from file to not overwrite previous entries
 		BufferedReader br = null;
 		try {
-			br = new BufferedReader(new FileReader(CSVFILEPATH));
+			br = new BufferedReader(new FileReader(READCSVFILEPATH));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		// consumes header line
-		br.readLine();
-
 		// reads each line to an arrayList
 		ArrayList<String> lines = new ArrayList<String>();
 		String line;
-		ArrayList<Integer> IDS = new ArrayList<>();
-		try {
-			while ((line = br.readLine()) != null) {
-				System.out.println("made it here lol");
-				lines.add(line);
-				String[] values = line.split(",");
-				IDS.add(Integer.parseInt(values[0]));
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		while ((line = br.readLine()) != null) {
+			lines.add(line);
 		}
 
-		// get last id and set it if not null
-		if (IDS.size() != 0) {
-			id.setid(IDS.get(IDS.size() - 1) + 1);
+		// writes lines to backup server file
+		for (int i = 0; i < lines.size(); i++) {
+			newWriter.write(lines.get(i));
+			newWriter.write("\n");
 		}
-		
-		System.out.println(lines);
-
-		return lines;
+		newWriter.flush();
+		newWriter.close();
 
 	}
+
+	public static void transactionMade(String payMeth, String prodType) throws IOException {
+		// call to write
+		int finalID = writeToLog(payMeth, prodType);
+		// check transaction ID
+		// if ID is multiple of 10 send to server
+		if (finalID % 10 == 0) {
+			sendToServer();
+		}
+	}
+
 }

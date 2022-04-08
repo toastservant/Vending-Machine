@@ -61,7 +61,7 @@ public class File {
 			for (Item item : machine.getItemList()) {
 				myWriter.write("\n");
 				myWriter.write(item.getCode() + "," + item.getName() + "," + String.format("%.2f", item.getPrice())
-						+ "," + item.getQuantity());
+						+ "," + item.getQuantity() + "," + item.getType());
 
 			}
 			myWriter.close();

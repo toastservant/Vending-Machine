@@ -11,7 +11,6 @@ public class Menu {
 	private String title; // menu title
 	private static Scanner input = new Scanner(System.in); // for KB input
 	public static String choice;
-	private static String paymentType;
 
 	/**
 	 * Constructor for class
@@ -101,8 +100,7 @@ public class Menu {
 				System.out.println("Price: " + String.format("%.2f", item.getPrice()));
 				System.out.println("Current balance: " + String.format("%.2f", balance));
 
-				System.out.println("Do you want to pay by cash or card? ");
-				String decision = input.next();
+				
 				// checks quantity
 				if (item.getQuantity() == 0) {
 					System.out.println("Item depleted");
@@ -118,6 +116,8 @@ public class Menu {
 					return true;
 				}
 				
+				System.out.println("Do you want to pay by cash or card? ");
+				String decision = input.next();
 
 				if (decision.equals("Cash") || decision.equals("cash")) {
 					// prompts coin until balance matches price
@@ -129,15 +129,11 @@ public class Menu {
 					item.purchase();
 					System.out.println("Item purchased");
 					Log.transactionMade("Cash", item.getType().toString());
-					paymentType = "Cash";
-					System.out.println(getPaymentType());
 					System.out.println("Current balance: " + String.format("%.2f", balance));
 					return true;
 				} else if (decision.equals("Card") || decision.equals("card")) {
 					cardBalance = CardPayment.payment();
 					input.nextLine();
-					paymentType = "Card";
-					System.out.println(getPaymentType());
 					// if card balance already exceeds price or not
 					if (item.getPrice() <= cardBalance) {
 						cardBalance -= item.getPrice();
@@ -159,10 +155,6 @@ public class Menu {
 		return false;
 	}
 
-	private static String getPaymentType() {
-		return paymentType;
-	}
-
 	private static void stockModeApplication() throws IOException {
 		String stockOptions[] = new String[] { "Set item price", "Check prices", "Change item name",
 				"Check/change item quantity", "Empty changebox", "Insert change", "Quit to user mode" };
@@ -176,7 +168,7 @@ public class Menu {
 
 	private static void key() throws IOException {
 		// validates password for entry into stock mode
-		String password = "1";
+		String password = "pass5356";
 		System.out.println("Please enter the key: ");
 		input.nextLine();
 		String inputPassword = input.nextLine();
@@ -203,9 +195,6 @@ public class Menu {
 			break;
 		case 3:
 			changeBox.dispenseChange(balance);
-			System.out.println("Dispensed £" + String.format("%.2f", balance));
-			balance = 0;
-			application();
 			break;
 		case 4:
 			key();
