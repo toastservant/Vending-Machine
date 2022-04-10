@@ -1,4 +1,3 @@
-package csc1031;
 
 import static org.junit.jupiter.api.Assertions.*;
 
