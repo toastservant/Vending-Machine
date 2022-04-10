@@ -195,6 +195,9 @@ public class Menu {
 			break;
 		case 3:
 			changeBox.dispenseChange(balance);
+			System.out.println("Change Ejected: £" + String.format("%.2f", balance));
+			balance = 0;
+			application();
 			break;
 		case 4:
 			key();
